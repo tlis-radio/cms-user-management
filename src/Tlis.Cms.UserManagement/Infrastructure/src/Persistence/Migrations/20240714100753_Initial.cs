@@ -30,16 +30,17 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "role",
+                name: "roles",
                 schema: "cms_user_management",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false)
+                    name = table.Column<string>(type: "text", nullable: false),
+                    external_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_role", x => x.id);
+                    table.PrimaryKey("pk_roles", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,13 +49,13 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    cms_admin_access = table.Column<bool>(type: "boolean", nullable: false),
                     firstname = table.Column<string>(type: "text", nullable: false),
                     lastname = table.Column<string>(type: "text", nullable: false),
                     nickname = table.Column<string>(type: "text", nullable: false),
                     abouth = table.Column<string>(type: "text", nullable: false),
                     profile_image_id = table.Column<Guid>(type: "uuid", nullable: true),
                     prefer_nickname_over_name = table.Column<bool>(type: "boolean", nullable: false),
-                    is_active = table.Column<bool>(type: "boolean", nullable: false),
                     external_id = table.Column<string>(type: "text", nullable: true),
                     email = table.Column<string>(type: "text", nullable: true)
                 },
@@ -82,13 +83,15 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                         column: x => x.membership_id,
                         principalSchema: "cms_user_management",
                         principalTable: "membership",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_user_membership_history_user_user_id",
                         column: x => x.user_id,
                         principalSchema: "cms_user_management",
                         principalTable: "user",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,17 +110,19 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("pk_user_role_history", x => x.id);
                     table.ForeignKey(
-                        name: "fk_user_role_history_role_role_id",
+                        name: "fk_user_role_history_roles_role_id",
                         column: x => x.role_id,
                         principalSchema: "cms_user_management",
-                        principalTable: "role",
-                        principalColumn: "id");
+                        principalTable: "roles",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_user_role_history_user_user_id",
                         column: x => x.user_id,
                         principalSchema: "cms_user_management",
                         principalTable: "user",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -131,21 +136,6 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                     { new Guid("cfaeecff-d26b-44f2-bfa1-c80ab79983a9"), "Postponed" }
                 });
 
-            migrationBuilder.InsertData(
-                schema: "cms_user_management",
-                table: "role",
-                columns: new[] { "id", "name" },
-                values: new object[,]
-                {
-                    { new Guid("4971ba3e-5a40-42cf-b9d9-17c49d9da309"), "dramaturge-dj" },
-                    { new Guid("8570d900-396f-4b78-bf69-5065e2fe8acf"), "marketing-pr" },
-                    { new Guid("a9a9040c-fbbd-4aa6-b0dc-56de7265ee7f"), "system-admin" },
-                    { new Guid("cbec6f46-a2e8-4fb3-a126-fe4e51e5ead2"), "technician" },
-                    { new Guid("ed7cafb5-f2bf-4fbe-972c-18fa4f056b69"), "moderator" },
-                    { new Guid("f5bdf1df-8406-44d6-b1a1-942f7bde7b23"), "web-developer" },
-                    { new Guid("fab1118e-38b9-4164-b222-66378654fcf4"), "graphic" }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "ix_membership_id",
                 schema: "cms_user_management",
@@ -153,9 +143,9 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                 column: "id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_role_id",
+                name: "ix_roles_id",
                 schema: "cms_user_management",
-                table: "role",
+                table: "roles",
                 column: "id");
 
             migrationBuilder.CreateIndex(
@@ -224,7 +214,7 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                 schema: "cms_user_management");
 
             migrationBuilder.DropTable(
-                name: "role",
+                name: "roles",
                 schema: "cms_user_management");
 
             migrationBuilder.DropTable(

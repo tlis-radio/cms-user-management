@@ -12,6 +12,15 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Repositories;
 internal sealed class UserRepository(UserManagementDbContext context)
     : GenericRepository<User>(context), IUserRepository
 {
+    public override Task<User?> GetByIdAsync(Guid id, bool asTracking)
+    {
+        var query = ConfigureTracking(DbSet.AsQueryable(), asTracking);
+
+        return query
+            .Include(x => x.RoleHistory).ThenInclude(x => x.Role)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
     public Task<User?> GetUserWithRoleHistoriesById(Guid id, bool asTracking)
     {
         var query = ConfigureTracking(DbSet.AsQueryable(), asTracking);

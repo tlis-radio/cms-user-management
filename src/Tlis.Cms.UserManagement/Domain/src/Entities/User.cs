@@ -6,6 +6,8 @@ namespace Tlis.Cms.UserManagement.Domain.Entities;
 
 public class User : BaseEntity
 {
+    public bool CmsAdminAccess { get; set; }
+
     public string Firstname { get; set; } = null!;
 
     public string Lastname { get; set; } = null!;

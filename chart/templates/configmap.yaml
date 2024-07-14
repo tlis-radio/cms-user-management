@@ -43,5 +43,10 @@ data:
         },
         "ConnectionStrings": {
             "Postgres": {{ .Values.config.connectionStrings.postgres | quote }}
+        },
+        "Auth0": {
+            "Domain": {{ .Values.config.auth0.domain | quote }},
+            "ClientId": {{ .Values.config.auth0.clientId | quote }},
+            "ClientSecret": {{ .Values.config.auth0.clientSecret | quote }}
         }
     }

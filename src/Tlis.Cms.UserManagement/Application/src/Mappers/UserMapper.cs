@@ -72,7 +72,6 @@ internal static partial class UserMapper
     [MapperIgnoreTarget(nameof(User.ExternalId))]
     [MapperIgnoreTarget(nameof(User.MembershipHistory))]
     [MapperIgnoreTarget(nameof(User.RoleHistory))]
-    [MapperIgnoreSource(nameof(UserCreateRequest.Password))]
     [MapperIgnoreSource(nameof(UserCreateRequest.MembershipHistory))]
     [MapperIgnoreSource(nameof(UserCreateRequest.RoleHistory))]
     public static partial User ToEntity(UserCreateRequest dto);
@@ -117,6 +116,7 @@ internal static partial class UserMapper
     [MapperIgnoreSource(nameof(UserRoleHistory.User))]
     private static partial UserDetailsGetResponseUserRoleHistory MapToUserDetailsGetResponseUserRoleHistory(UserRoleHistory entity);
 
+    [MapperIgnoreSource(nameof(Role.ExternalId))]
     private static partial UserDetailsGetResponseRole MapToUserDetailsGetResponseRole(Role role);
     
     [MapperIgnoreSource(nameof(UserMembershipHistory.UserId))]

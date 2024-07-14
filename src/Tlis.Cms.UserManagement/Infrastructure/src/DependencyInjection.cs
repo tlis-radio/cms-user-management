@@ -21,11 +21,6 @@ public static class DependencyInjection
             .Bind(configuration.GetSection("CmsServices"))
             .ValidateDataAnnotations()
             .ValidateOnStart();
-        services
-            .AddOptions<Auth0Configuration>()
-            .Bind(configuration.GetSection("Auth0"))
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
 
         services.AddDbContext(configuration);
         services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -33,11 +28,22 @@ public static class DependencyInjection
         services.AddScoped<ICacheService, CacheService>();
         services.AddScoped<IRoleService, RoleService>();
 
-        services.AddHttpClient<ITokenProviderService, TokenProviderService>();
-        services.AddHttpClient<IAuthProviderManagementService, AuthProviderManagementService>();
+        services.AddAuthProviderManagementService(configuration);
         services
             .AddHttpClient<IImageManagementHttpService, ImageManagementHttpService>()
             .AddStandardResilienceHandler();
+    }
+
+    public static void AddAuthProviderManagementService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddOptions<Auth0Configuration>()
+            .Bind(configuration.GetSection("Auth0"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddHttpClient<ITokenProviderService, TokenProviderService>();
+        services.AddScoped<IAuthProviderManagementService, AuthProviderManagementService>();
     }
 
     public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)

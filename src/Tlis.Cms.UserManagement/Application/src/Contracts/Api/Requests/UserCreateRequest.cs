@@ -33,8 +33,8 @@ public sealed class UserCreateRequest : IRequest<BaseCreateResponse>
     [SwaggerSchema(Description = "User's email address")]
     public string? Email { get; set; }
 
-    [SwaggerSchema(Description = "User's password. If no password is provided user wont be able to login to admin.")]
-    public string? Password { get; set; }
+    [Required]
+    public bool CmsAdminAccess { get; set; }
 
     [SwaggerSchema(Description = "User's role history.")]
     [Required]

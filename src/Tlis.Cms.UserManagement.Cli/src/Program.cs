@@ -51,11 +51,14 @@ public static class Program
             .CreateLogger();
         services.AddLogging(builder => builder.AddSerilog(dispose: true));
 
+        services.AddMemoryCache();
         services.AddSingleton<IConfiguration>(configuration);
 
         services.AddSingleton<Command, MigrationCommand>();
+        services.AddSingleton<Command, CreateRolesCommand>();
 
         services.AddDbContext(configuration);
+        services.AddAuthProviderManagementService(configuration);
 
         return services.BuildServiceProvider();
     }
