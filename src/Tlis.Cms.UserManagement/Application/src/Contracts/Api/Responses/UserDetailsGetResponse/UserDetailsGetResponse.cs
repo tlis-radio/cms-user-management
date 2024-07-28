@@ -23,6 +23,9 @@ public sealed class UserDetailsGetResponse
     [Required]
     public bool PreferNicknameOverName { get; set; }
 
+    [Required]
+    public bool CmsAdminAccess { get; set; }
+
     public string? ExternalId { get; set; }
 
     public string? Email { get; set; }

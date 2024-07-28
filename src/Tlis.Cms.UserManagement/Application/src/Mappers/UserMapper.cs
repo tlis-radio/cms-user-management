@@ -49,6 +49,7 @@ internal static partial class UserMapper
             Lastname = entity.Lastname,
             Nickname = entity.Nickname,
             PreferNicknameOverName = entity.PreferNicknameOverName,
+            CmsAdminAccess = entity.CmsAdminAccess,
             Abouth = entity.Abouth,
             ExternalId = entity.ExternalId,
             MembershipHistory = entity.MembershipHistory.Select(MapToUserDetailsGetResponseUserMembershipHistory).ToList(),
