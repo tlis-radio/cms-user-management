@@ -6,7 +6,7 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Services.Interfaces;
 
 public interface IAuthProviderManagementService
 {
-    ValueTask<string> CreateUser(string username, string email, string[] roleIds);
+    ValueTask<string> CreateUser(string email, string[] roleIds);
 
     ValueTask UpdateUserRoles(string id, string[] roleIds);
 

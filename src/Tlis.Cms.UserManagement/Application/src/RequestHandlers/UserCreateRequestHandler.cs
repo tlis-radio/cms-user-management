@@ -61,7 +61,6 @@ internal sealed class UserCreateRequestHandler(
                 ?? throw new NullReferenceException();
 
             userToCreate.ExternalId = await authProviderManagementService.CreateUser(
-                request.Nickname,
                 request.Email,
                 user.RoleHistory.Where(x => x.FunctionEndDate == null).Select(x => x.Role!.ExternalId).ToArray());
         }

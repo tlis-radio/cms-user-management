@@ -23,7 +23,7 @@ internal sealed class AuthProviderManagementService(
 
     private readonly string _domain = configuration.Value.Domain;
 
-    public async ValueTask<string> CreateUser(string username, string email, string[] roleIds)
+    public async ValueTask<string> CreateUser(string email, string[] roleIds)
     {
         try
         {
@@ -33,7 +33,6 @@ internal sealed class AuthProviderManagementService(
                 new UserCreateRequest
                 {
                     Email = email,
-                    UserName = username,
                     Password = RandomString.GetString(Types.ALPHABET_MIXEDCASE_WITH_SYMBOLS, 15),
                     Connection = "Username-Password-Authentication"
                 }

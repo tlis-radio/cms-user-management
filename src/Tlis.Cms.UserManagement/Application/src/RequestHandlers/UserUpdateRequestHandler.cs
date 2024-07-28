@@ -33,7 +33,6 @@ internal sealed class UserUpdateRequestHandler(
             var roles = await unitOfWork.RoleRepository.GetByIdsAsync(roleIds, asTracking: false);
 
             user.ExternalId = await authProviderManagementService.CreateUser(
-                request.Nickname,
                 request.Email,
                 roles.Select(x => x.ExternalId).ToArray());
         }
