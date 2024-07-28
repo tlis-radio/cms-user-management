@@ -21,6 +21,11 @@ internal sealed class UserUpdateRequestHandler(
         var user = await unitOfWork.UserRepository.GetUserDetailsById(request.Id, asTracking: true);
         if (user is null) return false;
 
+        if (user.CmsAdminAccess is false)
+        {
+            user.Email = request.Email;
+        }
+
         if (user.CmsAdminAccess && request.CmsAdminAccess is false && user.ExternalId is not null)
         {
             await authProviderManagementService.DeleteUser(user.ExternalId);
@@ -49,7 +54,6 @@ internal sealed class UserUpdateRequestHandler(
         user.Lastname = request.Lastname;
         user.Nickname = request.Nickname;
         user.Abouth = request.Abouth;
-        user.Email = request.Email;
         user.CmsAdminAccess = request.CmsAdminAccess;
         user.PreferNicknameOverName = request.PreferNicknameOverName;
         ResolveRoleHistory(user, request.RoleHistory);
