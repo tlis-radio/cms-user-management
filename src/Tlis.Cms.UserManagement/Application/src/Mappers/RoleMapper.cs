@@ -7,5 +7,6 @@ namespace Tlis.Cms.UserManagement.Application.Mappers;
 [Mapper]
 internal static partial class RoleMapper
 {
+    [MapperIgnoreSource(nameof(Role.ExternalId))]
     public static partial RoleGetAllResponseItem ToRoleGetAllResponseItem(Role dto);
 }

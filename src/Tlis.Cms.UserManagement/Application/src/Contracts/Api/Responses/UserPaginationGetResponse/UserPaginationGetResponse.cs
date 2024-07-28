@@ -10,6 +10,9 @@ public sealed class UserPaginationGetResponse
     public Guid Id { get; set; }
 
     [Required]
+    public bool CmsAdminAccess { get; set; }
+
+    [Required]
     public string Firstname { get; set; } = null!;
 
     [Required]

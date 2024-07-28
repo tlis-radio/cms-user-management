@@ -18,11 +18,13 @@ public sealed class UserDetailsGetResponse
     [Required]
     public string Abouth { get; set; } = null!;
 
-    [Required]
-    public Guid? ProfileImageId { get; set; }
+    public UserDetailsGetResponseImage? ProfileImage { get; set; }
 
     [Required]
     public bool PreferNicknameOverName { get; set; }
+
+    [Required]
+    public bool CmsAdminAccess { get; set; }
 
     public string? ExternalId { get; set; }
 

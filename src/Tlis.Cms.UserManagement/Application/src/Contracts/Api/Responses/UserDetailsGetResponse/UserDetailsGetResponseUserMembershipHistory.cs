@@ -6,6 +6,9 @@ namespace Tlis.Cms.UserManagement.Application.Contracts.Api.Responses;
 public sealed class UserDetailsGetResponseUserMembershipHistory
 {
     [Required]
+    public Guid Id { get; set; }
+
+    [Required]
     public UserDetailsGetResponseUserMembershipHistoryMembership Membership { get; set; } = null!;
 
     [Required]

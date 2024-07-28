@@ -17,3 +17,6 @@ config:
     domain: ""
     clientId: ""
     clientSecret: ""
+  cmsServices:
+    imageAssetManagement:
+      baseAddress:

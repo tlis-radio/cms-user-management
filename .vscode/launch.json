@@ -39,6 +39,22 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
+        },
+        {
+            "name": "Cli create roles",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-cli",
+            "program": "${workspaceFolder}/src/Tlis.Cms.UserManagement.Cli/src/bin/Debug/net8.0/Tlis.Cms.UserManagement.Cli.dll",
+            "args": ["create-roles"],
+            "cwd": "${workspaceFolder}/src/Tlis.Cms.UserManagement.Cli/src",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
         }
     ]
 }

@@ -46,6 +46,19 @@
             }
           }
         },
+        "cmsServices": {
+          "type": "object",
+          "properties": {
+            "imageAssetManagement": {
+              "type": "object",
+              "properties": {
+                "baseAddress": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
         "auth0": {
           "type": "object",
           "properties": {

@@ -21,7 +21,7 @@ internal sealed class MembershipStatusGetAllRequestHandler(IUnitOfWork unitOfWor
             Results = memberships.Select(membership => new MembershipStatusGetAllResponseItem
             {
                 Id = membership.Id,
-                Name = Enum.GetName(membership.Status) ?? throw new Exception($"Unable to Enum.GetName for {membership.Status}")
+                Status = Enum.GetName(membership.Status) ?? throw new Exception($"Unable to Enum.GetName for {membership.Status}")
             }).ToList()
         };
     }

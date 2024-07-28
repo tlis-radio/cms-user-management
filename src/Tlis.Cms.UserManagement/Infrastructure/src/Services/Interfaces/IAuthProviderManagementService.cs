@@ -1,10 +1,16 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Auth0.ManagementApi.Models;
 
 namespace Tlis.Cms.UserManagement.Infrastructure.Services.Interfaces;
 
 public interface IAuthProviderManagementService
 {
-    public ValueTask<string> CreateUser(string username, string email, string password);
+    ValueTask<string> CreateUser(string email, string[] roleIds);
 
-    public Task DeleteUser(string id);
+    ValueTask UpdateUserRoles(string id, string[] roleIds);
+
+    Task<List<Role>> GetAllRoles();
+
+    Task DeleteUser(string id);
 }

@@ -22,6 +22,11 @@ data:
             "Authority": {{ .Values.config.jwt.authority | quote }},
             "Issuer": {{ .Values.config.jwt.issuer | quote }}
         },
+        "CmsServices": {
+            "ImageAssetManagement": {
+                "BaseAddress": {{ .Values.config.cmsServices.imageAssetManagement.baseAddress | quote }}
+            }
+        },
         "Auth0": {
             "Domain": {{ .Values.config.auth0.domain | quote }},
             "ClientId": {{ .Values.config.auth0.clientId | quote }},
@@ -38,5 +43,10 @@ data:
         },
         "ConnectionStrings": {
             "Postgres": {{ .Values.config.connectionStrings.postgres | quote }}
+        },
+        "Auth0": {
+            "Domain": {{ .Values.config.auth0.domain | quote }},
+            "ClientId": {{ .Values.config.auth0.clientId | quote }},
+            "ClientSecret": {{ .Values.config.auth0.clientSecret | quote }}
         }
     }

@@ -1,14 +1,11 @@
 using System;
 using System.Text.Json.Serialization;
-using MediatR;
-using Tlis.Cms.UserManagement.Application.Contracts.Api.Responses;
 
 namespace Tlis.Cms.UserManagement.Application.Contracts.Api.Requests;
 
-public sealed class MembershipHistoryToUserAddRequest : IRequest<BaseCreateResponse?>
+public sealed class UserUpdateRequestMembershipHistory
 {
-    [JsonIgnore]
-    public Guid UserId { get; set; }
+    public Guid? Id { get; set; }
 
     [JsonRequired]
     public Guid MembershipId { get; set; }

@@ -6,6 +6,9 @@ namespace Tlis.Cms.UserManagement.Application.Contracts.Api.Responses;
 public sealed class UserDetailsGetResponseUserRoleHistory
 {
     [Required]
+    public Guid Id { get; set; }
+
+    [Required]
     public DateTime FunctionStartDate { get; set; }
 
     public DateTime? FunctionEndDate { get; set; }

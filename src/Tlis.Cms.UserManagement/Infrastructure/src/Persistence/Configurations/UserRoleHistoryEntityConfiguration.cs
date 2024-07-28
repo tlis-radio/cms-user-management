@@ -26,14 +26,14 @@ internal sealed class UserRoleHistoryEntityConfiguration : IEntityTypeConfigurat
             .HasOne(x => x.User)
             .WithMany(x => x.RoleHistory)
             .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .IsRequired(); // TODO: test
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         builder
             .HasOne(x => x.Role)
             .WithMany()
             .HasForeignKey(x => x.RoleId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .IsRequired(); // TODO: test
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
     }
 }

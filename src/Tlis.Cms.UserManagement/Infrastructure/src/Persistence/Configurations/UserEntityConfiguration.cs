@@ -12,6 +12,7 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedOnAdd().HasValueGenerator((_, _) => new GuidValueGenerator());
 
+        builder.Property(x => x.CmsAdminAccess).IsRequired();
         builder.Property(x => x.Firstname).IsRequired();
         builder.Property(x => x.Lastname).IsRequired();
         builder.Property(x => x.Nickname).IsRequired();

@@ -24,12 +24,12 @@ internal sealed class UserMembershipHistoryEntityConfiguration : IEntityTypeConf
             .HasOne<Membership>(x => x.Membership)
             .WithMany()
             .HasForeignKey(x => x.MembershipId)
-            .OnDelete(DeleteBehavior.NoAction); // TODO: test
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder
             .HasOne<User>()
             .WithMany(x => x.MembershipHistory)
             .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.NoAction); // TODO: test
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -9,6 +9,8 @@ using Tlis.Cms.UserManagement.Infrastructure.Persistence.Interfaces;
 using Tlis.Cms.UserManagement.Infrastructure.Services.Interfaces;
 using Tlis.Cms.UserManagement.Application.Mappers;
 using Tlis.Cms.UserManagement.Domain.Constants;
+using System.Linq;
+using System;
 
 namespace Tlis.Cms.UserManagement.Application.RequestHandlers;
 
@@ -50,17 +52,18 @@ internal sealed class UserCreateRequestHandler(
             );
         }
 
-        if (!string.IsNullOrEmpty(request.Email) && !string.IsNullOrEmpty(request.Password))
-        {
-            userToCreate.ExternalId = await authProviderManagementService.CreateUser(
-                request.Nickname,
-                request.Email,
-                request.Password
-            );
-        }
-
         await unitOfWork.UserRepository.InsertAsync(userToCreate);
         await unitOfWork.SaveChangesAsync();
+
+        if (!string.IsNullOrEmpty(request.Email) && request.CmsAdminAccess)
+        {
+            var user = await unitOfWork.UserRepository.GetByIdAsync(userToCreate.Id, asTracking: true)
+                ?? throw new NullReferenceException();
+
+            userToCreate.ExternalId = await authProviderManagementService.CreateUser(
+                request.Email,
+                user.RoleHistory.Where(x => x.FunctionEndDate == null).Select(x => x.Role!.ExternalId).ToArray());
+        }
 
         return new BaseCreateResponse
         {

@@ -68,55 +68,23 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("external_id");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
 
                     b.HasKey("Id")
-                        .HasName("pk_role");
+                        .HasName("pk_roles");
 
                     b.HasIndex("Id")
-                        .HasDatabaseName("ix_role_id");
+                        .HasDatabaseName("ix_roles_id");
 
-                    b.ToTable("role", "cms_user_management");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a9a9040c-fbbd-4aa6-b0dc-56de7265ee7f"),
-                            Name = "system-admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("cbec6f46-a2e8-4fb3-a126-fe4e51e5ead2"),
-                            Name = "technician"
-                        },
-                        new
-                        {
-                            Id = new Guid("ed7cafb5-f2bf-4fbe-972c-18fa4f056b69"),
-                            Name = "moderator"
-                        },
-                        new
-                        {
-                            Id = new Guid("fab1118e-38b9-4164-b222-66378654fcf4"),
-                            Name = "graphic"
-                        },
-                        new
-                        {
-                            Id = new Guid("8570d900-396f-4b78-bf69-5065e2fe8acf"),
-                            Name = "marketing-pr"
-                        },
-                        new
-                        {
-                            Id = new Guid("4971ba3e-5a40-42cf-b9d9-17c49d9da309"),
-                            Name = "dramaturge-dj"
-                        },
-                        new
-                        {
-                            Id = new Guid("f5bdf1df-8406-44d6-b1a1-942f7bde7b23"),
-                            Name = "web-developer"
-                        });
+                    b.ToTable("roles", "cms_user_management");
                 });
 
             modelBuilder.Entity("Tlis.Cms.UserManagement.Domain.Entities.User", b =>
@@ -130,6 +98,10 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("abouth");
+
+                    b.Property<bool>("CmsAdminAccess")
+                        .HasColumnType("boolean")
+                        .HasColumnName("cms_admin_access");
 
                     b.Property<string>("Email")
                         .HasColumnType("text")
@@ -260,14 +232,14 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                     b.HasOne("Tlis.Cms.UserManagement.Domain.Entities.Membership", "Membership")
                         .WithMany()
                         .HasForeignKey("MembershipId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_membership_history_membership_membership_id");
 
                     b.HasOne("Tlis.Cms.UserManagement.Domain.Entities.User", null)
                         .WithMany("MembershipHistory")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_membership_history_user_user_id");
 
@@ -279,14 +251,14 @@ namespace Tlis.Cms.UserManagement.Infrastructure.Persistence.Migrations
                     b.HasOne("Tlis.Cms.UserManagement.Domain.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_user_role_history_role_role_id");
+                        .HasConstraintName("fk_user_role_history_roles_role_id");
 
                     b.HasOne("Tlis.Cms.UserManagement.Domain.Entities.User", "User")
                         .WithMany("RoleHistory")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_role_history_user_user_id");
 

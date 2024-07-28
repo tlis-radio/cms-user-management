@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tlis.Cms.UserManagement.Application.Contracts.Api.Responses;
 
-public sealed class MembershipStatusGetAllResponseItem
+public sealed class UserDetailsGetResponseImage
 {
+    [Required]
     public Guid Id { get; set; }
 
     [Required]
-    public string Status { get; set; } = null!;
+    public required string Url { get; set; }
 }
